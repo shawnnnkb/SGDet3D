@@ -1,0 +1,7 @@
+kornia
+wandb
+yapf==0.40.1
+setuptools==59.5.0
+numba==0.54.0
+parrots
+k3d

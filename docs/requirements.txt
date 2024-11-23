@@ -1,0 +1,5 @@
+-r docs/requirements/build.txt
+-r docs/requirements/optional.txt
+-r docs/requirements/runtime.txt
+-r docs/requirements/tests.txt
+-r docs/requirements/SGDet3D.txt

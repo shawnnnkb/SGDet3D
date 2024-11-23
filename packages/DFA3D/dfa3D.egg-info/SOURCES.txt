@@ -1,0 +1,16 @@
+setup.py
+./dfa3D/ops/csrc/ms_depth_score_sample.cpp
+./dfa3D/ops/csrc/pybind.cpp
+./dfa3D/ops/csrc/wms_deform_attn.cpp
+./dfa3D/ops/csrc/cuda/cudabind.cpp
+./dfa3D/ops/csrc/cuda/ms_depth_score_sample_cuda.cu
+./dfa3D/ops/csrc/cuda/wms_deform_attn_cuda.cu
+dfa3D/__init__.py
+dfa3D/ext_loader.py
+dfa3D.egg-info/PKG-INFO
+dfa3D.egg-info/SOURCES.txt
+dfa3D.egg-info/dependency_links.txt
+dfa3D.egg-info/not-zip-safe
+dfa3D.egg-info/top_level.txt
+dfa3D/ops/__init__.py
+dfa3D/ops/multi_scale_3D_deform_attn.py
