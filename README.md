@@ -2,6 +2,7 @@
 
 ## 🗓️ News
 
+- **2024.12.01** [early access](https://ieeexplore.ieee.org/document/10783046/)
 - **2024.11.23** code v1.0 released
 - **2024.11.21** RA-L acceptance
 
