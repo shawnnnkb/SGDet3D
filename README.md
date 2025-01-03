@@ -54,7 +54,13 @@ As it is not possible to list all the projects of the reference papers. If you f
 ## ✒️ Citation
 
 If you find our work beneficial for your research, please consider citing our paper and give us a star. If you encounter any issues, please contact shawnnnkb@zju.edu.cn.
-
+```
+@ARTICLE{SGDet3D,
+  author={Bai, Xiaokai and Yu, Zhu and Zheng, Lianqing and Zhang, Xiaohan and Zhou, Zili and Zhang, Xue and Wang, Fang and Bai, Jie and Shen, Hui-Liang},
+  journal={IEEE Robotics and Automation Letters}, 
+  title={SGDet3D: Semantics and Geometry Fusion for 3D Object Detection Using 4D Radar and Camera}, 
+  year={2024}}
+```
 ## 🐸 Visualization Results
 
 ![View-of-Delft](./docs/all_Figures/Visualization.png)
