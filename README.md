@@ -36,8 +36,8 @@ We retrained the model and achieved better performance compared to the results r
 
 |                           Dataset                            | Backbone | EAA 3D mAP | DC 3D mAP |                        Model Weights                         |
 | :----------------------------------------------------------: | :------: | :--------: | :-------: | :----------------------------------------------------------: |
-| [View-of-delft](projects/SGDet3D/configs/vod-SGDet3D_det3d_2x4_12e.py) | ResNet50 |   59.75    |   77.42   | [Link](https://github.com/shawnnnkb/SGDet3D-release/releases/download/v1.0/final_ckpt.zip) |
-| [TJ4DRadSet](projects/SGDet3D/configs/TJ4D-SGDet3D_det3d_2x4_12e.py) | ResNet50 |   41.82    |   47.16   | [Link](https://github.com/shawnnnkb/SGDet3D-release/releases/download/v1.0/final_ckpt.zip) |
+| [View-of-delft](projects/SGDet3D/configs/vod-SGDet3D_det3d_2x4_12e.py) | ResNet50 |   59.75    |   77.42   | [Link](https://github.com/shawnnnkb/SGDet3D/releases/download/weights-and-checkpoints/final_ckpt.zip) |
+| [TJ4DRadSet](projects/SGDet3D/configs/TJ4D-SGDet3D_det3d_2x4_12e.py) | ResNet50 |   41.82    |   47.16   | [Link](https://github.com/shawnnnkb/SGDet3D/releases/download/weights-and-checkpoints/final_ckpt.zip) |
 
 ### 😙 Acknowledgement
 
