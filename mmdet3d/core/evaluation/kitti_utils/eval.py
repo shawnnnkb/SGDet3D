@@ -28,7 +28,8 @@ def get_thresholds(scores: np.ndarray, num_gt, num_sample_pts=41):
 
 def clean_data(gt_anno, dt_anno, current_class, difficulty):
     #CLASS_NAMES = ['car', 'pedestrian', 'cyclist', 'truck']
-    CLASS_NAMES = ['car', 'pedestrian', 'cyclist', 'truck']
+    CLASS_NAMES = ['car', 'pedestrian', 'cyclist']
+    min_instance_height = [40]
     # MIN_HEIGHT = [40, 25, 25]
     # MAX_OCCLUSION = [0, 1, 2]
     # MAX_TRUNCATION = [0.15, 0.3, 0.5]
@@ -46,30 +47,41 @@ def clean_data(gt_anno, dt_anno, current_class, difficulty):
         # # -------------GUOLV---------
         if gt_anno["difficulty"][i] >= 0:
             gt_anno["difficulty"][i] = 2
-            range_gt = (gt_anno["location"][i, 0] ** 2 + gt_anno["location"][i, 1] ** 2 + gt_anno["location"][
-                i, 2] ** 2) ** 0.5
-            # if 60 < range_gt <= 80:
-            #     gt_anno["difficulty"][i] = 2
-            if 0 < range_gt <= 50:
-                gt_anno["difficulty"][i] = 0
-            elif 50 < range_gt <= 70:
-                gt_anno["difficulty"][i] = 1
-
-            # #---------------distance-------------
             # range_gt = (gt_anno["location"][i, 0] ** 2 + gt_anno["location"][i, 1] ** 2 + gt_anno["location"][
             #     i, 2] ** 2) ** 0.5
-            # if 50 < range_gt <= 70:
+            range_gt = gt_anno["location"][i, 2]
+            # if 60 < range_gt <= 80:
             #     gt_anno["difficulty"][i] = 2
-            # elif 25 < range_gt <= 50:
+            if 0 < range_gt <= 25:
+                gt_anno["difficulty"][i] = 0
+            elif 25 < range_gt <= 50:
+                gt_anno["difficulty"][i] = 1
+
+            # num_points_in_gt = gt_anno['num_points_in_gt'][i]
+            # if 130 < num_points_in_gt <= 140:
+            #     gt_anno["difficulty"][i] = 2
+            # elif 120 < num_points_in_gt <= 130:
             #     gt_anno["difficulty"][i] = 1
-            # elif 0 < range_gt <= 25:
+            # elif 110 < num_points_in_gt <= 120:
             #     gt_anno["difficulty"][i] = 0
             # else:
             #     gt_anno["difficulty"][i] = -1
-            # #-----------------------------------
+
+            # else:
+            #     gt_anno["difficulty"][i] = -1
+            # if gt_anno["difficulty"][i] >= 0:
+            #     gt_anno["difficulty"][i] = 2
+            #     mean_v = gt_anno["meanvelocity_points_in_gt"][i]
+            #     if 10 < mean_v:
+            #         gt_anno["difficulty"][i] = 2
+            #     elif 1 < mean_v <= 10:
+            #         gt_anno["difficulty"][i] = 1
+            #     elif mean_v <= 1:
+            #         gt_anno["difficulty"][i] = 0
+
         bbox = gt_anno['bbox'][i]
         gt_name = gt_anno['name'][i].lower()
-       # height = bbox[3] - bbox[1]
+        height = bbox[3] - bbox[1]
         valid_class = -1
         if (gt_name == current_cls_name):
             valid_class = 1
@@ -84,10 +96,7 @@ def clean_data(gt_anno, dt_anno, current_class, difficulty):
         # if ((gt_anno['occluded'][i] > MAX_OCCLUSION[difficulty])
         #         or (gt_anno['truncated'][i] > MAX_TRUNCATION[difficulty])
         #         or (height <= MIN_HEIGHT[difficulty])):
-        if gt_anno["difficulty"][i] > difficulty or gt_anno["difficulty"][i] == -1:
-        #---------------
-        #if gt_anno["difficulty"][i] != difficulty or gt_anno["difficulty"][i] == -1:
-        #-------------------------
+        if gt_anno["difficulty"][i] > difficulty or gt_anno["difficulty"][i] == -1 or (height<=min_instance_height[0]):
             ignore = True
         if valid_class == 1 and not ignore:
             ignored_gt.append(0)
@@ -603,12 +612,12 @@ def eval_class(gt_annos,
     return ret_dict
 
 
-def get_mAP11(prec):
+def get_mAP(prec):
     sums = 0
     for i in range(0, prec.shape[-1], 4):
         sums = sums + prec[..., i]
     return sums / 11 * 100
-def get_mAP(prec):
+def get_mAP40(prec):
     sums = 0
     for i in range(0, prec.shape[-1]):
         sums = sums + prec[..., i]
@@ -706,16 +715,16 @@ def kitti_eval(gt_annos,
     #                         [0.5, 0.25, 0.25, 0.5, 0.25]])
     lap1 = 0.5
     lap2 = 0.25
-    overlap_0_7 = np.array([[lap1] * 4, [lap1] * 4,
-                            [lap1] * 4])
-    overlap_0_5 = np.array([[lap2] * 4, [lap2] * 4,
-                            [lap2] * 4])
+    overlap_0_7 = np.array([[lap1] * 3, [lap1] * 3,
+                            [lap1] * 3])
+    overlap_0_5 = np.array([[lap2] * 3, [lap2] * 3,
+                            [lap2] * 3])
     min_overlaps = np.stack([overlap_0_7, overlap_0_5], axis=0)  # [2, 3, 5]
     class_to_name = {
         0: 'Car',
         1: 'Pedestrian',
         2: 'Cyclist',
-        3: 'Truck',
+
     }
     name_to_class = {v: n for n, v in class_to_name.items()}
     if not isinstance(current_classes, (list, tuple)):
@@ -793,22 +802,22 @@ def kitti_eval(gt_annos,
         # prepare results for print
         result += ('\nOverall AP40@{}, {}, {}:\n'.format(*difficulty))
         if mAPbbox is not None:
-            mAPbbox = np.concatenate((mAPbbox[:2,:,1],mAPbbox[2:4,:,0]))
+            mAPbbox = np.concatenate((mAPbbox[:2,:,1],mAPbbox[[2],:,0]))
             mAPbbox = mAPbbox.mean(axis=0)
             result += 'bbox AP:{:.4f}, {:.4f}, {:.4f}\n'.format(*mAPbbox)
            # result += 'bbox AP:{:.4f}, {:.4f}, {:.4f}\n'.format(*mAPbbox[:, 0])
         if mAPbev is not None:
-            mAPbev = np.concatenate((mAPbev[:2,:,1],mAPbev[2:4,:,0]))
+            mAPbev = np.concatenate((mAPbev[:2,:,1],mAPbev[[2],:,0]))
             mAPbev = mAPbev.mean(axis=0)
             result += 'bev  AP:{:.4f}, {:.4f}, {:.4f}\n'.format(*mAPbev)
             #result += 'bev  AP:{:.4f}, {:.4f}, {:.4f}\n'.format(*mAPbev[:, 0])
         if mAP3d is not None:
-            mAP3d = np.concatenate((mAP3d[:2,:,1],mAP3d[2:4,:,0]))
+            mAP3d = np.concatenate((mAP3d[:2,:,1],mAP3d[[2],:,0]))
             mAP3d = mAP3d.mean(axis=0)
             result += '3d   AP:{:.4f}, {:.4f}, {:.4f}\n'.format(*mAP3d)
             #result += '3d   AP:{:.4f}, {:.4f}, {:.4f}\n'.format(*mAP3d[:, 0])
         if compute_aos:
-            mAPaos = np.concatenate((mAPaos[:2,:,1],mAPaos[2:4,:,0]))
+            mAPaos = np.concatenate((mAPaos[:2,:,1],mAPaos[[2],:,0]))
             mAPaos = mAPaos.mean(axis=0)
             result += 'aos  AP:{:.2f}, {:.2f}, {:.2f}\n'.format(*mAPaos)
             #result += 'aos  AP:{:.2f}, {:.2f}, {:.2f}\n'.format(*mAPaos[:, 0])

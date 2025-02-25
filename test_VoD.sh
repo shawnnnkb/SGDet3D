@@ -4,7 +4,7 @@ OUTPUT_NAME=vod-SGDet3D
 PRED_RESULTS=./tools_det3d/view-of-delft-dataset/pred_results/$OUTPUT_NAME 
 
 GPUS="4"
-PORT=${PORT:-1clear9500}
+PORT=${PORT:-19500}
 CUDA_VISIBLE_DEVICES="0,1,2,3" \
 PYTHONPATH="$(dirname $0)/..":$PYTHONPATH \
 python -m torch.distributed.launch \

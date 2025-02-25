@@ -91,7 +91,7 @@ class KittiDataset(Custom3DDataset):
             str: Name of the point cloud file.
         """
         pts_filename = osp.join(self.root_split, self.pts_prefix,
-                                f'{idx:06d}.bin')
+                                f'{idx:05d}.bin')
         return pts_filename
 
     def get_data_info(self, index):
@@ -120,18 +120,14 @@ class KittiDataset(Custom3DDataset):
         # TODO: consider use torch.Tensor only
         rect = info['calib']['R0_rect'].astype(np.float32)
         Trv2c = info['calib']['Tr_velo_to_cam'].astype(np.float32)
-        # # # -------xiaorong-------------
-        # # #print("original Trv2c",Trv2c)
-        # if self.ann_file[-7:] == 'val.pkl':
+        # # -------xiaorong-------------
+        # #print("original Trv2c",Trv2c)
+        # if self.ann_file[-7:] != 'val.pkl':
         #
         #     jitter_array = np.zeros((4,4))
-        #     jitter_array[2,3] = np.random.uniform(0.6,0.8) ###
-        #     jitter_array[0, 3] = np.random.uniform(0.6, 0.8)
-        #     jitter_array[1, 3] = np.random.uniform(0.8, 0.8)
-        #     # jitter_array[2, 3] = 4*np.random.random_sample()-2   ###
-        #     #print("Trv2c:", Trv2c)
+        #     jitter_array[2,3] = np.random.uniform(0,0.2) ###
         #     Trv2c = Trv2c + jitter_array
-        #     #print("Trv2c over:",Trv2c)
+        #
         #
         # # --------------------------------
         P2 = info['calib']['P2'].astype(np.float32)
@@ -459,7 +455,7 @@ class KittiDataset(Custom3DDataset):
                 annos.append(anno)
 
             if submission_prefix is not None:
-                curr_file = f'{submission_prefix}/{sample_idx:06d}.txt'
+                curr_file = f'{submission_prefix}/{sample_idx:05d}.txt'
                 with open(curr_file, 'w') as f:
                     bbox = anno['bbox']
                     loc = anno['location']
@@ -581,7 +577,7 @@ class KittiDataset(Custom3DDataset):
             print(f'Saving KITTI submission to {submission_prefix}')
             for i, anno in enumerate(det_annos):
                 sample_idx = self.data_infos[i]['image']['image_idx']
-                cur_det_file = f'{submission_prefix}/{sample_idx:06d}.txt'
+                cur_det_file = f'{submission_prefix}/{sample_idx:05d}.txt'
                 with open(cur_det_file, 'w') as f:
                     bbox = anno['bbox']
                     loc = anno['location']

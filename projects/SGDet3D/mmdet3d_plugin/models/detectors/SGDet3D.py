@@ -96,9 +96,9 @@ class SGDet3D(MVXFasterRCNN):
         self.RCFusion = RCFusion
         self.meta_info = meta_info
         self.figures_path = meta_info['figures_path']
-        self.poject_name = meta_info['poject_name']
-        if 'vod' in self.poject_name.lower(): self.dataset_type = 'VoD'
-        if 'tj4d' in self.poject_name.lower(): self.dataset_type = 'TJ4D'
+        self.project_name = meta_info['project_name']
+        if 'vod' in self.project_name.lower(): self.dataset_type = 'VoD'
+        if 'tj4d' in self.project_name.lower(): self.dataset_type = 'TJ4D'
 
         # other papa for convenience
         self.xbound = self.grid_config['xbound']
