@@ -1,7 +1,7 @@
 # SGDet3D: Semantics and Geometry Fusion for 3D Object Detection Using 4D Radar and Camera
 
 ## 🗓️ News
-
+- **2024.11.23** all code released
 - **2024.12.01** [early access](https://ieeexplore.ieee.org/document/10783046/)
 - **2024.11.23** code v1.0 released
 - **2024.11.21** RA-L acceptance

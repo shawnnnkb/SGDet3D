@@ -138,7 +138,7 @@ def main():
         work_dir = os.path.join('work_dirs', project)
         figures_path = os.path.join(work_dir, 'figures_path')
         os.makedirs(figures_path, exist_ok=True)
-        cfg.model.update(meta_info = {'figures_path':figures_path, 'poject_name': project})
+        cfg.model.update(meta_info = {'figures_path':figures_path, 'project_name': project})
     
     if args.cfg_options is not None:
         cfg.merge_from_dict(args.cfg_options)

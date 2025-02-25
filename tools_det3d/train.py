@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from __future__ import division
 import copy, argparse, os, time
-os.environ['CUDA_VISIBLE_DEVICES'] = '2'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '2'
 import mmcv, shutil, torch, warnings
 torch.autograd.set_detect_anomaly(True)
 from mmcv import Config, DictAction
@@ -165,7 +165,7 @@ def main():
     if not 'pillar' in project:
         figures_path = os.path.join(cfg.work_dir, 'figures_path')
         os.makedirs(figures_path, exist_ok=True)
-        cfg.model.update(meta_info = {'figures_path':figures_path, 'poject_name': project})
+        cfg.model.update(meta_info = {'figures_path':figures_path, 'project_name': project})
         
     if args.resume_from is not None:
         cfg.resume_from = args.resume_from
