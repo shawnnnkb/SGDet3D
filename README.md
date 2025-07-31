@@ -12,9 +12,7 @@
 
 ## 🛠️ Method
 
-<video width="1920" height="1080" controls>
-  <source src="docs/SGDet3D_demo.mp4" type="video/mp4">
-</video>
+https://github.com/user-attachments/assets/3cf6e384-ea33-47b3-b9c9-fe3dc2b77bba
 
 ![overview](./docs/all_Figures/Framework.png)
 
