@@ -604,9 +604,9 @@ def eval_class(gt_annotations,
                         compute_aos=compute_aos)
                     
                     # Calculate confusion matrix parts
-                    tp = pr[-1, 0].astype(np.int64)
-                    fp = pr[-1, 1].astype(np.int64)
-                    fn = pr[-1, 2].astype(np.int64)
+                    tp = pr[-1, 0].astype(np.int64) if pr.shape[0] > 0 else 0
+                    fp = pr[-1, 1].astype(np.int64) if pr.shape[0] > 0 else 0
+                    fn = pr[-1, 2].astype(np.int64) if pr.shape[0] > 0 else 0
                     # print("split_parts_idx:%2d, num_part:%2d, idx:%4d, tp:%4d, fp:%4d, fn:%4d"
                     #       %(j, num_part, np.int(np.sum(split_parts[:j])), tp, fp, fn))
                     cm[0, 0] = tp

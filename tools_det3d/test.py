@@ -19,8 +19,8 @@ from mmdet.datasets import replace_ImageToTensor
 
 def parse_args():
     parser = argparse.ArgumentParser(description='MMDet test (and eval) a model')
-    parser.add_argument('--config', default='./projects/SGDet3D/configs/vod-SGDet3D_det3d_2x4_12e.py', help='test config file path')
-    parser.add_argument('--checkpoint', default='./projects/SGDet3D/checkpoints/FINAL-VoD.pth', help='checkpoint file')
+    parser.add_argument('--config', default='./projects/SGDet3D/configs/TJ4D-SGDet3D_det3d_2x4_12e.py', help='test config file path')
+    parser.add_argument('--checkpoint', default='./projects/SGDet3D/checkpoints/FINAL-TJ4D.pth', help='checkpoint file')
     parser.add_argument('--show', default=False, help='show results')
     parser.add_argument('--show-dir', default='./point_cloud_det3d', help='directory where results will be saved')
     parser.add_argument('--out', help='output result file in pickle format')
@@ -192,6 +192,8 @@ def main():
     # build the model and load checkpoint
     cfg.model.train_cfg = None
     model = build_model(cfg.model, test_cfg=cfg.get('test_cfg'))
+    # mmdet3d_wandb_init(cfg, project)
+    print('MODEL TOTAL PARAMETERS = %d'%(sum(p.numel() for p in model.parameters())))
     fp16_cfg = cfg.get('fp16', None)
     if fp16_cfg is not None:
         wrap_fp16_model(model)
