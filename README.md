@@ -6,16 +6,14 @@
 - **2024.11.23** code v1.0 released
 - **2024.11.21** RA-L acceptance
 
+
+https://github.com/user-attachments/assets/3cf6e384-ea33-47b3-b9c9-fe3dc2b77bba
 ## 📜 Abstract
  
 4D millimeter-wave radar has gained attention as an emerging sensor for autonomous driving in recent years. However, existing 4D radar and camera fusion models often fail to fully exploit complementary information within each modality and lack deep cross-modal interactions. To address these issues, we propose a novel 4D radar and camera fusion method, named SGDet3D, for 3D object detection. Specifically, we first introduce a dual-branch fusion module that employs geometric depth completion and semantic radar PillarNet to comprehensively leverage geometric and semantic information within each modality. Then we introduce an object-oriented attention module that employs localization-aware cross-attention to facilitate deep interactions across modalites by allowing queries in bird’s-eye view (BEV) to attend to interested image tokens. We validate our SGDet3D on the TJ4DRadSet and View-of-Delft (VoD) datasets. Experimental results demonstrate that SGDet3D effectively fuses 4D radar data and camera image and achieves state-of-the-art performance.
 
 ## 🛠️ Method
-
-https://github.com/user-attachments/assets/3cf6e384-ea33-47b3-b9c9-fe3dc2b77bba
-
 ![overview](./docs/all_Figures/Framework.png)
-
 Architecture of our SGDet3D neural network. (a) The feature extraction module extract radar and image features. (b) The dual-branch fusion module fully leverages rich radar geometry for image branch and rich image semantics for radar branch, ultimately lifting the features into the unified BEV space. (c) The object-oriented attention module uses cross-attention to further enhance the featurization of the cross-modal BEV queries by deeply interacting with interested image tokens. (d) The object detection head. Dashed line represents the deep utilization of cross-modal information.
 
 ## 🍁 Quantitative Results
