@@ -12,6 +12,10 @@
 
 ## 🛠️ Method
 
+<video width="1920" height="1080" controls>
+  <source src="docs/SGDet3D_demo.mp4" type="video/mp4">
+</video>
+
 ![overview](./docs/all_Figures/Framework.png)
 
 Architecture of our SGDet3D neural network. (a) The feature extraction module extract radar and image features. (b) The dual-branch fusion module fully leverages rich radar geometry for image branch and rich image semantics for radar branch, ultimately lifting the features into the unified BEV space. (c) The object-oriented attention module uses cross-attention to further enhance the featurization of the cross-modal BEV queries by deeply interacting with interested image tokens. (d) The object detection head. Dashed line represents the deep utilization of cross-modal information.
